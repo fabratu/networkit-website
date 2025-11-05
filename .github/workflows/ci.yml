@@ -5,10 +5,10 @@ on: [push, pull_request]
 jobs:  
   documentation-build:
     name: "Website build"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
       - name: Prepare environment and run checks
         run:  |
           python3 -m venv pyenv && . pyenv/bin/activate
@@ -25,7 +25,7 @@ jobs:
           rm -rf www/{.buildinfo,.doctrees}
       - name: Deploy networkit.github.io 🚀
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.SECRET_DEPLOY_GITHUB_PAGES }}
           external_repository: networkit/networkit.github.io
